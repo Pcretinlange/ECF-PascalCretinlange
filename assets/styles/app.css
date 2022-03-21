@@ -1,3 +1,44 @@
-body {
-    background-color: lightgray;
+@font-face {
+    font-family: "Magistral Honesty";
+    src: url('./fonts/Magistral Honesty.ttf');
+}
+
+@media (max-width: 990px) {
+        .menutoggle {
+            background-color: #111111;
+        }
+}
+@media (max-width: 990px) {
+    .footer-style {
+        text-align: center;
+    }
+
+    .private-pool {
+        border-bottom: 40px solid white;
+    }
+}
+
+.background-header {
+    background:url("./img/header.png") center;
+    background-size: cover;
+    height: 500px;
+}
+
+.pool, .seaview {
+    background-color: #eaeaea ;
+}
+
+
+.footer-style {
+    border-top: 2px solid black;
+    background-color: #eaeaea ;
+}
+
+.footer {
+    background-color: #4F4F4F;
+
+}
+
+.pres-img {
+    border: 1px solid black;
 }

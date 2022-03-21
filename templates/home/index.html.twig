@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BIENVENUE  SUR HYPNOS{% endblock %}
+
+{% block body %}
+
+    <main>
+        <article>
+            <section class="row col-lg-12 col-md-6 text-center">
+                <div class="col-lg-6 p-5">
+                    <h3 class="mt-5 mb-2">Hypnos Hotels</h3>
+                    <h4 class="trait-noir">Découvrez nos Séjours !</h4>
+                      <p class="mt-4">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                    <button class="btn bg-dark text-white w-50">Nos Hôtels</button>
+                </div>
+                <div class="col-lg-6 p-5">
+                    <img src="{{ asset("img/img-pres.png") }}" alt="">
+                </div>
+            </section>
+
+
+
+            <section class=" row col-lg-12 col-md-6 text-center">
+                <div class="col-lg-6 p-5">
+                    <img height="85%" src="{{ asset("img/room-pool.jpg") }}" alt="">
+                   </div>
+                <div class="pool private-pool d-flex flex-column justify-content-center col-lg-6 p-5 align-items-center">
+                    <h4 class="">Suite Piscine Privée</h4>
+                    <p class="pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                    <button class="btn bg-dark text-white w-50">En savoir +</button>
+                </div>
+            </section>
+
+
+            <section class=" row col-lg-12 col-md-6 text-center">
+                <div class="seaview  d-flex flex-column justify-content-center  col-lg-6 p-5 align-items-center">
+                    <h4>Suite Vue sur Mer</h4>
+                    <p class="pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                    <button class="btn bg-dark text-white w-50">En savoir +</button>
+                </div>
+                <div class="col-lg-6 p-5">
+                    <img height="85%" src="{{ asset("img/room-seaview.jpg") }}" alt="">
+                </div>
+            </section>
+            <section class="row col-lg-12 col-md-4 mt-5 text-center justify-content-center ">
+            <div class="col-lg-3">
+                <img class="pres-img" height="70%" src="{{ asset("img/image1.jpg") }}" alt="">
+                </div>
+            <div class="col-lg-3">
+                <img class="pres-img"  height="70%" src="{{ asset("img/image2.jpg") }}" alt="">
+                </div>
+            <div class="col-lg-3">
+                <img class="pres-img"  height="70%" src="{{ asset("img/image3.jpg") }}" alt="">
+                </div>
+            <div class="col-lg-3">
+                <img class="pres-img"  height="70%" src="{{ asset("img/image4.jpg") }}" alt="">
+               </div>
+            </section>
+            <section class=" row col-lg-12 col-md-4 mt-5 text-center justify-content-center ">
+                <h5 class="pb-2 trait-noir w-25">Premium Services +</h5>
+                <h4 class="p-3 mb-5 ">Le luxe en illimité</h4>
+                <div class="col-lg-3">
+                    <img height="10%" src="{{ asset("img/service-kingbed.svg") }}" alt="">
+                    <h5 class="">King-Size Bed</h5>
+                    <p class="pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                </div>
+                <div class="col-lg-3">
+                    <img height="10%" src="{{ asset("img/service-pool.svg") }}" alt="">
+                    <h5 class="">Pool & Fitness Room</h5>
+                    <p class="pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                </div>
+                <div class="col-lg-3">
+                    <img height="10%" src="{{ asset("img/service-food.svg") }}" alt="">
+                    <h5 class="">5* Restaurant</h5>
+                    <p class="pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                </div>
+                <div class="align-items-center mb-5">
+                <button class="btn bg-dark text-white w-25">Contactez-nous</button>
+                </div>
+            </section>
+        </article>
+
+
+
+    </main>
+
+{% endblock %}
