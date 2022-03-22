@@ -24,7 +24,7 @@ class DashboardController extends AbstractDashboardController
     {
 
         $url = $this->adminUrlGenerator
-            ->setController(UsersCrudController::class)
+            ->setController(GerantsCrudController::class)
             ->generateUrl();
         return $this->redirect($url);
 
@@ -40,12 +40,14 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Accueil','fas fa-home');
 
-        yield MenuItem::subMenu('Utilisateurs','fas fa-list')
+        yield MenuItem::subMenu('Utilisateurs','fas fa-user')
         ->setPermission('ROLE_ADMIN')
             ->setSubItems([
-                MenuItem::linkToCrud('Administrateur(s)','fas fa-user', Users::class),
-                MenuItem::linkToCrud('Gérants','fas fa-user', Users::class),
-                MenuItem::linkToCrud('Clients','fas fa-user', Users::class),
+                MenuItem::linkToCrud('Administrateur(s)','fas fa-plus', Users::class)
+            ->setController(AdminCrudController::class),
+                MenuItem::linkToCrud('Gérants','fas fa-plus', Users::class)
+                    ->setController(GerantsCrudController::class),
+                MenuItem::linkToCrud('Clients','fas fa-plus', Users::class),
 
             ]);
 
