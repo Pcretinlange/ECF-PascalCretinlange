@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Hotels;
 use App\Entity\Users;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -40,18 +41,18 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Accueil','fas fa-home');
 
-        yield MenuItem::subMenu('Utilisateurs','fas fa-user')
+        yield MenuItem::subMenu('Utilisateurs','fa fa-users')
         ->setPermission('ROLE_ADMIN')
             ->setSubItems([
-                MenuItem::linkToCrud('Administrateur(s)','fas fa-plus', Users::class)
+                MenuItem::linkToCrud('Administrateur(s)','fa fa-user-circle-o', Users::class)
             ->setController(AdminCrudController::class),
-                MenuItem::linkToCrud('Gérants','fas fa-plus', Users::class)
+                MenuItem::linkToCrud('Gérants','fa fa-user-circle-o', Users::class)
                     ->setController(GerantsCrudController::class),
-                MenuItem::linkToCrud('Clients','fas fa-plus', Users::class),
+                MenuItem::linkToCrud('Clients','fa fa-user-circle-o', Users::class),
 
             ]);
 
-        yield MenuItem::section('Hotels','fas fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToCrud('Hotels','fas fa-plus', Hotels::class)
+            ->setController(HotelsCrudController::class);
     }
 }

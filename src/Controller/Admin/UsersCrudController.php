@@ -26,7 +26,7 @@ class UsersCrudController extends AbstractCrudController
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
     {
         $response = $this->entityRepository->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
-        $response->andWhere('entity.roles LIKE :role')->setParameter('role', '%ROLE_USER%');
+        $response->andWhere('entity.roles LIKE :role')->setParameter('role', '%ROLE_CLIENT%');
         return $response;
     }
 
@@ -34,8 +34,8 @@ class UsersCrudController extends AbstractCrudController
     {
         return $crud
             ->setSearchFields(['firstname', 'lastname', 'email'])
-            ->setEntityLabelInSingular('Utilisateur')
-            ->setEntityLabelInPlural('Utilisateurs');
+            ->setEntityLabelInSingular('Client')
+            ->setEntityLabelInPlural('Clients');
     }
 
     public static function getEntityFqcn(): string
@@ -57,7 +57,7 @@ class UsersCrudController extends AbstractCrudController
                 ->setChoices([
                     'Administrateur'=>'ROLE_ADMIN',
                     'Gérant'=>'ROLE_GERANT',
-                    'Client'=>'ROLE_USER'
+                    'Client'=>'ROLE_CLIENT'
                 ])
                 ->allowMultipleChoices()
         ];
