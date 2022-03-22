@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion à votre compte{% endblock %}
+
+{% block body %}
+    <form method="post">
+        <h4 class="mb-3 mt-2 h3 text-center mt-4">Connexion</h4></div>
+        <hr>
+        <div class="container col-5">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <label class="p2" for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+            <label class="mt-4"  for="inputPassword">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}">
+            <div class="d-flex justify-content-center mt-2">
+            <button class="btn btn-lg mt-3 mb-5 bg-dark text-white w-50" type="submit">
+                Se connecter
+            </button></div></div>
+        <a class="d-flex justify-content-center mb-3 mt-2 text-center mt-4 text-black" href="{{path('app_login')}}">Pas encore membre ? Créez un compte</a>
+    </form>
+{% endblock %}

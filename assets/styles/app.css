@@ -42,3 +42,8 @@
 .pres-img {
     border: 1px solid black;
 }
+
+.plongez {
+    -webkit-text-stroke: 1px;
+    -webkit-text-stroke-color: black;
+}
