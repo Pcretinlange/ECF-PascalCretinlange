@@ -8,14 +8,15 @@ use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 
 class HotelsCrudController extends AbstractCrudController
-{ protected EntityRepository $entityRepository;
+{
+    protected EntityRepository $entityRepository;
 
     public function configureCrud(Crud $crud): Crud
     {
@@ -35,9 +36,15 @@ class HotelsCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name','Nom'),
-            TextField::new('city','Ville'),
             TextField::new('adress', 'Adresse'),
-            TextareaField::new('description','Description')
+            TextField::new('city','Ville'),
+            AssociationField::new('Users','Gérant')
+            ->setRequired(true)
+            ->setQueryBuilder(function ($queryBuilder) {
+                return $queryBuilder
+                    ->andWhere('entity.roles LIKE :role')
+                    ->setParameter('role', '%ROLE_GERANT%');
+            })
         ];
     }
 }

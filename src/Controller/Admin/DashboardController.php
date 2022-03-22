@@ -52,7 +52,7 @@ class DashboardController extends AbstractDashboardController
 
             ]);
 
-        yield MenuItem::linkToCrud('Hotels','fas fa-plus', Hotels::class)
+        yield MenuItem::linkToCrud('Hôtels','fa fa-header', Hotels::class)
             ->setController(HotelsCrudController::class);
     }
 }
