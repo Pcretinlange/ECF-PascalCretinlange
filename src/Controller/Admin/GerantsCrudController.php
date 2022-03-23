@@ -34,8 +34,8 @@ class GerantsCrudController extends AbstractCrudController
     {
         return $crud
             ->setSearchFields(['firstname', 'lastname', 'email'])
-            ->setEntityLabelInSingular('Administrateur')
-            ->setEntityLabelInPlural('Administrateurs');
+            ->setEntityLabelInSingular('Gérant')
+            ->setEntityLabelInPlural('Gérants');
     }
 
     public static function getEntityFqcn(): string

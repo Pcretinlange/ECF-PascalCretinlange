@@ -40,6 +40,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: ReservationRooms::class)]
     private $Reservation_rooms;
 
+    private $fullname;
+
     public function __construct()
     {
         $this->hotels = new ArrayCollection();
@@ -197,8 +199,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function __toString() {
+    /**
+     * @return mixed
+     */
+    public function getFullname()
+    {
         return $this->getFirstname().' '.$this->getLastname();
     }
-
+    public function __toString() {
+        return $this->getFullname();
+    }
 }

@@ -1,0 +1,32 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCor{# p\Bundle\EasyAdminBundle\Dto\EntityDto #}
+{% if 'toMany' == field.customOptions.get('associationType') %}
+    {% if 'detail' == ea.crud.currentPage %}
+        {% set maxLi = field.customOptions.get('maxLi')  ?? 4 %}
+        {% set toDisplay = field.customOptions.get('toDisplay')  ?? '' %}
+        {% for row in field.value %}
+            {% if loop.first %}
+                <div{% if field.value|length > maxLi %} style="height:{{ (maxLi + 1) * 22.4 }}px; overflow:scroll;"{% endif %}>
+                <table><tbody>
+            {% endif %}
+            <tr><td>
+                    <span class="pr-3">
+                        {% if toDisplay %}{{ attribute(row,toDisplay) }}{% else %}{{ row }}{% endif %}
+                    </span>
+                </td></tr>
+            {% if loop.last %}
+                </tbody></table>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <span class="badge badge-secondary">{{ field.formattedValue }}</span>
+    {% endif %}
+{% else %}
+    {% if field.customOptions.get('relatedUrl') is not null %}
+        <a href="{{ field.customOptions.get('relatedUrl') }}">{{ field.formattedValue }}</a>
+    {% else %}
+        {{ field.formattedValue }}
+    {% endif %}
+{% endif %}
