@@ -18,13 +18,7 @@ class Images
     #[ORM\Column(type: 'string', length: 50)]
     private $name;
 
-    #[ORM\Column(type: 'integer')]
-    private $size;
-
-    #[ORM\Column(type: 'string', length: 20)]
-    private $type;
-
-    #[ORM\Column(type: 'blob')]
+    #[ORM\Column(type: 'string', length: 255)]
     private $bin;
 
     #[ORM\ManyToMany(targetEntity: HotelRooms::class, mappedBy: 'Images')]
@@ -48,30 +42,6 @@ class Images
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSize(): ?int
-    {
-        return $this->size;
-    }
-
-    public function setSize(int $size): self
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }

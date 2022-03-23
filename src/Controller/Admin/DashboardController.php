@@ -45,7 +45,7 @@ class DashboardController extends AbstractDashboardController
         ->setPermission('ROLE_ADMIN')
             ->setSubItems([
                 MenuItem::linkToCrud('Administrateur(s)','fa fa-user-circle-o', Users::class)
-            ->setController(AdminCrudController::class),
+                    ->setController(AdminCrudController::class),
                 MenuItem::linkToCrud('Gérants','fa fa-user-circle-o', Users::class)
                     ->setController(GerantsCrudController::class),
                 MenuItem::linkToCrud('Clients','fa fa-user-circle-o', Users::class),
@@ -53,6 +53,8 @@ class DashboardController extends AbstractDashboardController
             ]);
 
         yield MenuItem::linkToCrud('Hôtels','fa fa-header', Hotels::class)
-            ->setController(HotelsCrudController::class);
+                    ->setController(HotelsCrudController::class);
+        yield MenuItem::linkToCrud('Suites','fa fa-bed', HotelRooms::class)
+            ->setController(HotelRoomsCrudController::class);
     }
 }

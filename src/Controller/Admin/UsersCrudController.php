@@ -53,10 +53,8 @@ class UsersCrudController extends AbstractCrudController
             TextField::new('password', 'Mot de passe')
                 ->setFormType(PasswordType::class)
                 ->onlyWhenCreating(),
-            ChoiceField::new('roles','Fonction')
+            ChoiceField::new('roles','Fonction')->hideOnIndex()
                 ->setChoices([
-                    'Administrateur'=>'ROLE_ADMIN',
-                    'Gérant'=>'ROLE_GERANT',
                     'Client'=>'ROLE_CLIENT'
                 ])
                 ->allowMultipleChoices()
