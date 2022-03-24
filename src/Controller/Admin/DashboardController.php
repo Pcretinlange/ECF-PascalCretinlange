@@ -37,13 +37,10 @@ class DashboardController extends AbstractDashboardController
         $user = $this->getUser();
         if ($user->getRole() == 'ROLE_GERANT') {
 
-
             return Dashboard::new()
                 ->setTitle($user->getHotelName());
 
         }
-
-
             return Dashboard::new()
             ->setTitle('Interface Groupe Hypnos');
     }
@@ -68,8 +65,12 @@ class DashboardController extends AbstractDashboardController
                     ->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToCrud('Suites','fa fa-bed', HotelRooms::class)
             ->setController(HotelRoomsCrudController::class)
-            ->setPermission('ROLE_GERANT');
+        ->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Suites','fa fa-bed', HotelRooms::class)
+        ->setController(HotelRoomsManagerCrudController::class)
+        ->setPermission('ROLE_GERANT');
         yield MenuItem::linkToCrud('Upload Images','fa fa-image', Images::class)
             ->setController(ImagesCrudController::class);
+
     }
 }
