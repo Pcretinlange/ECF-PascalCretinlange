@@ -2,9 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\HotelRooms;
 use App\Entity\Hotels;
+use App\Entity\Images;
 use App\Entity\Users;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -33,7 +34,17 @@ class DashboardController extends AbstractDashboardController
 
     public function configureDashboard(): Dashboard
     {
-        return Dashboard::new()
+        $user = $this->getUser();
+        if ($user->getRole() == 'ROLE_GERANT') {
+
+
+            return Dashboard::new()
+                ->setTitle($user->getHotelName());
+
+        }
+
+
+            return Dashboard::new()
             ->setTitle('Interface Groupe Hypnos');
     }
 
@@ -53,8 +64,12 @@ class DashboardController extends AbstractDashboardController
             ]);
 
         yield MenuItem::linkToCrud('Hôtels','fa fa-header', Hotels::class)
-                    ->setController(HotelsCrudController::class);
+                    ->setController(HotelsCrudController::class)
+                    ->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToCrud('Suites','fa fa-bed', HotelRooms::class)
-            ->setController(HotelRoomsCrudController::class);
+            ->setController(HotelRoomsCrudController::class)
+            ->setPermission('ROLE_GERANT');
+        yield MenuItem::linkToCrud('Upload Images','fa fa-image', Images::class)
+            ->setController(ImagesCrudController::class);
     }
 }

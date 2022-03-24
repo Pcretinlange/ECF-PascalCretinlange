@@ -41,6 +41,7 @@ class GerantsCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->showEntityActionsInlined()
             ->setSearchFields(['firstname', 'lastname', 'email'])
             ->setEntityLabelInSingular('Gérant')
             ->setEntityLabelInPlural('Gérants');

@@ -8,13 +8,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
-use phpDocumentor\Reflection\PseudoTypes\NumericString;
 
 class HotelRoomsCrudController extends AbstractCrudController
 {
@@ -30,6 +26,8 @@ class HotelRoomsCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->showEntityActionsInlined()
+            ->showEntityActionsInlined()
             ->setSearchFields(['title', 'description', 'adress'])
             ->setPageTitle('detail', fn (HotelRooms $hotel_rooms) => (string) $hotel_rooms->getTitle())
             ->setEntityLabelInSingular('Suite')
@@ -39,14 +37,12 @@ class HotelRoomsCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title','Nom'),
+            AssociationField::new('Images','Image')
+                ->setRequired(true),
             NumberField::new('price', 'Prix/Nuit'),
             TextareaField::new('description', 'Description'),
             AssociationField::new('hotels','Hôtel')
                 ->setRequired(true),
             TextField::new('booking_link','Lien Booking.com')->hideOnIndex()
-
-
         ];
     }}
-
-

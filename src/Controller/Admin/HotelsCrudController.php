@@ -26,6 +26,7 @@ class HotelsCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->showEntityActionsInlined()
             ->setSearchFields(['name', 'city', 'adress'])
             ->setPageTitle('detail', fn (Hotels $hotels) => (string) $hotels->getName())
             ->setEntityLabelInSingular('Hôtel')

@@ -33,6 +33,7 @@ class UsersCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->showEntityActionsInlined()
             ->setSearchFields(['firstname', 'lastname', 'email'])
             ->setEntityLabelInSingular('Client')
             ->setEntityLabelInPlural('Clients');
