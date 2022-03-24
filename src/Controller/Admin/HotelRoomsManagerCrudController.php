@@ -36,7 +36,7 @@ class HotelRoomsManagerCrudController extends AbstractCrudController
         $hotels= $user->getHotels();
         $response = $this->entityRepository->createQueryBuilder($searchDto, $entityDto, $fields, $filters);
         $response->andWhere('entity.hotels = :name')
-            ->setParameter('name', $hotels);
+                 ->setParameter('name', $hotels);
         return $response;
     }
 
@@ -64,10 +64,18 @@ class HotelRoomsManagerCrudController extends AbstractCrudController
     }
     public function configureFields(string $pageName): iterable
     {
+        /**
+         * @var Users $user
+         */
+        $user = $this->getUser();
+        $hotels = $user->getHotelName();
         return [
-
             AssociationField::new('hotels','Hôtel')
-                ->setRequired(true),
+                ->setQueryBuilder(function ($query) use ($hotels) {
+                    return $query
+                            ->andWhere('entity.name = :hotel')
+                            ->setParameter('hotel', $hotels);
+                }),
             TextField::new('title','Nom'),
             NumberField::new('price', 'Prix/Nuit'),
             TextareaField::new('description', 'Description'),

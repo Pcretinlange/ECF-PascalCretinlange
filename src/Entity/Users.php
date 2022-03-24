@@ -211,7 +211,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->roles[0];
     }
-    public function getHotelName()
+    public function getHotelName() :string
     {
         return $this->hotels[0];
     }
