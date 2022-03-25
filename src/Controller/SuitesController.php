@@ -19,6 +19,7 @@ class SuitesController extends AbstractController
     #[Route('/suites/{id}', name: 'app_suites')]
     public function index($id): Response
     {
+
         $suites = $this->entityManager->getRepository(HotelRooms::class)->findBy(array('hotels' => $id));
         $hoteltitle = $this->entityManager->getRepository(HotelRooms::class)->findOneBy(array('hotels' => $id));
         return $this->render('suites/index.html.twig', [

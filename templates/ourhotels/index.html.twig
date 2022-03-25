@@ -4,7 +4,7 @@
 
 {% block body %}
 <main>
-    <tbody>
+
     <article>
     <section class="row justify-content-center text-center">
             <div class="col-md-4">
@@ -21,11 +21,10 @@
                 <h5 class="pt-1">{{ hotel.city }}</h5>
                 <img class="card-img m-3" src="{{ 'img/hotel'~ hotel.id ~'.webp'}}" alt="{{ hotel.name }}">
                 <p>{{ hotel.description }}</p>
-                <button class="btn bg-dark text-white w-50">Réserver une suite</button>
+                <a href="{{ path('app_suites', {'id': hotel.id}) }}" class="btn bg-dark text-white w-50">Réserver une suite</a>
             </div>
             {% endfor %}
         </section>
     </article>
-        </tbody>
 
 {% endblock %}
