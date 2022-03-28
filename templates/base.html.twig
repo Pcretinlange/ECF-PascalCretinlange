@@ -34,13 +34,21 @@
                         {% else %}
                         <a class="nav-link fw-bolder" aria-current="page" href="{{path('app_home')}}">Accueil</a>
                     </li>
-                    {% endif %}
+                         {% endif %}
                     <li class="nav-item fw-bolder">
+                        {% if (app.request.get('_route') == 'app_ourhotels') %}
+                        <a class="nav-link active fw-bolder" aria-current="page" href="{{path('app_ourhotels')}}">Nos Hôtels</a>
+                        {% else %}
                         <a class="nav-link fw-bolder" aria-current="page" href="{{path('app_ourhotels')}}">Nos Hôtels</a>
                     </li>
+                        {% endif %}
                     <li class="nav-item fw-bolder">
-                        <a class="nav-link" href="#">Réservation</a>
+                        {% if (app.request.get('_route') == 'app_reservations') %}
+                        <a class="nav-link active fw-bolder" aria-current="page" href="{{path('app_reservations')}}">Réservations</a>
+                        {% else %}
+                        <a class="nav-link fw-bolder" aria-current="page" href="{{path('app_reservations')}}">Réservations</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item fw-bolder">
                         <a class="nav-link" href="#">Nous Contacter</a>
                     </li>
@@ -77,7 +85,7 @@
 <div class="d-flex h-75 flex-column justify-content-end text-center align-items-center">
     <h1 class="plongez text-black-50">Plongez et</h1>
     <h1 class="text-black">Découvrez Hypnos</h1>
-    <button class="btn bg-dark text-white">Réservez vite !</button>
+    <a href="{{path('app_reservations')}}" class="btn bg-dark text-white w-15">Réservez vite !</a>
 </div>
 </div>
 
@@ -98,10 +106,10 @@
 
                         <ul class="list-unstyled mb-0">
                             <li>
-                                <a href="#" class="text-black">Termes & Conditions</a>
+                                <a href="{{path('app_ourhotels')}}" class="text-black">Nos Hôtels</a>
                             </li>
                             <li>
-                                <a href="#" class="text-black">Chambres & Suites</a>
+                                <a href="{{path('app_reservations')}}" class="text-black">Réserver</a>
                             </li>
                             <li>
                                 <a href="#" class="text-black">Compte Client</a>
@@ -117,7 +125,7 @@
                         Séjourner dans un Hôtel Hypnos, c'est multiplier les plaisirs
                         et satisfaire toutes ses envies. Entre ressourcement et légèreté,
                         rituels et surprises… Nos hôtels offrent une nouvelle
-                        expérience à vivre faite d'élégance, de sensualité, d'impertinence,
+                        expérience à vivre, faite d'élégance, de sensualité, d'impertinence et
                         de convivialité.
                     </p>
                 </div>
@@ -128,6 +136,8 @@
 
             </div>
         </footer>
+{% block body_javascript %}
+{% endblock %}
       </body>
 </html>
 

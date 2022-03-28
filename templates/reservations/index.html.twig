@@ -1,20 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ReservationsController!{% endblock %}
+{% block title %}Réservation de votre Séjour{% endblock %}
+
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h4 class="mb-3 mt-2 h3 text-center mt-4 ">Réservation</h4>
+    <hr>
+    <div class="seaview col-lg-5 p-5 mt-4 mb-4 m-auto">
+        <h5 class="mb-2">Sélectionnez votre séjour :</h5>
+        {{ form(reservationForm) }}
+        <br>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/wamp64/www/ECF-STUDI/src/Controller/ReservationsController.php'|file_link(0) }}">src/Controller/ReservationsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/wamp64/www/ECF-STUDI/templates/reservations/index.html.twig'|file_link(0) }}">templates/reservations/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+
+
+{% endblock %}
+{% block body_javascript %}
+    <script type="module" src="{{ asset('assets/datepicker/datepicker.min.js') }}"></script>
+        <script type="text/javascript">
+        $(document).ready(function (){
+            datepicker('.startdate', {
+                id:1,
+                formatter: (input, date) => {
+                    input.value = date.toLocaleDateString()
+                },
+                startDay: 1,
+                customDays : ['Di' , 'Lu' , 'Ma' , 'Me' , 'Je' , 'Ve' , 'Sa'],
+                customMonths: ['Janvier' , 'Février' , 'Mars' , 'Avril' , 'Mai' , 'Juin' , 'Juillet' , 'Août' , 'Septembre' , 'Octobre' , 'Novembre' , 'Décembre'],
+                overlayButton : 'Valider',
+                overlayPlaceholder : 'Année',
+                minDate : new Date(Date.now())
+            })
+            datepicker('.enddate', {
+                id:1,
+                formatter: (input, date) => {
+                    input.value = date.toLocaleDateString()
+                }
+            })
+        })
+    </script>
 {% endblock %}
