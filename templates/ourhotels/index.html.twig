@@ -21,7 +21,7 @@
                 <h5 class="pt-1">{{ hotel.city }}</h5>
                 <img class="card-img m-3" src="{{ 'img/hotel'~ hotel.id ~'.webp'}}" alt="{{ hotel.name }}">
                 <p>{{ hotel.description }}</p>
-                <a href="{{ path('app_suites', {'id': hotel.id}) }}" class="btn bg-dark text-white w-50">Réserver une suite</a>
+                <a href="{{ path('app_suites', {'id': hotel.id}) }}" class="btn bg-dark text-white w-50">Découvrir nos suites</a>
             </div>
             {% endfor %}
         </section>

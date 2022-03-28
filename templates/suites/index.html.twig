@@ -11,11 +11,11 @@
         <section class="seaview col-md-4 d-flex flex-column text-center p-4 align-items-center m-5">
             <h4 class="mt-2 mb-2">{{ suite.title }}</h4>
 
-            <div id="suite{{suite.id}}" class="carousel slide" data-bs-ride="carousel">
+            <div id="suite{{suite.id}}" class="carousel slide mt-2 mb-4" data-bs-ride="carousel">
                <div class="carousel-inner">
                     {% for image in suite.images %}
                         <div class="carousel-item {% if loop.index==1 %}active{% endif %}">
-                            <img src="{{ asset('img/'~ image.bin)}}" alt="{{ suite.title }}" class="d-block w-100">
+                            <img src="{{ asset('img/'~ image.bin)}}" alt="{{ suite.title }}" class="d-block w-100 card-img">
                         </div>
                     {% endfor %}
                 </div>
@@ -29,6 +29,7 @@
                 </button>
             </div>
             <p>{{suite.description }}</p>
+            <a href="#" class="btn bg-dark text-white w-50">Réserver une suite</a>
         </section>{% endfor %}
     </article>
 {% endblock %}
