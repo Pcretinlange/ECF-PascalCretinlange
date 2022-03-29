@@ -16,9 +16,11 @@ class ReservationsController extends AbstractController
 {
     $reservationRooms = new ReservationRooms();
     $form = $this->createForm(ReservationFormType::class, $reservationRooms);
+    $form->handleRequest($request);
         return
             $this ->render('reservations/index.html.twig', [
             'reservationForm' => $form->createView(),
         ]);
     }
+
 }

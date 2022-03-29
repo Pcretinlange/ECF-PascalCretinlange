@@ -13,9 +13,6 @@
         <br>
     </div>
 
-
-
-
 {% endblock %}
 {% block body_javascript %}
     <script type="module" src="{{ asset('assets/datepicker/datepicker.min.js') }}"></script>
@@ -41,4 +38,24 @@
             })
         })
     </script>
+    <script>
+            const $hotel = $("#reservation_form_hotels");
+            $hotel.change(function (){
+            let $form = $(this).closest('form');
+            let data = {};
+            data[$hotel.attr('name')] = $hotel.val();
+
+                $.ajax({
+                    url:$form.attr('action'),
+                    type:$form.attr('method'),
+                    data:data,
+                    complete: function(html) {
+                        $("#reservation_form_hotelRooms").replaceWith(
+                        $(html.responseText).find("#reservation_form_hotelRooms")
+                        );
+                        }
+                });
+            });
+    </script>
+
 {% endblock %}
