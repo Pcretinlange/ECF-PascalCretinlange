@@ -29,7 +29,7 @@
                 </button>
             </div>
             <p>{{suite.description }}</p>
-            <a href="{{path('app_reservations')}}" class="btn bg-dark text-white w-15">Consulter les disponibilités</a>
+            <a href="{{path('app_reservations', {hotel:suite.hotels.id, suite:suite.id})}}" class="btn bg-dark text-white w-15">Consulter les disponibilités</a>
             <br>
             <a href="{{suite.bookinglink}}" class="btn bg-dark text-white w-15" target="_blank">Lien Booking.com</a>
         </section>{% endfor %}

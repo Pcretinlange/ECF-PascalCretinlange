@@ -19,7 +19,7 @@
 }
 
 .background-header {
-    background:url("./img/header.png") center;
+    background:url("./img/header.webp") center;
     background-size: cover;
     height: 500px;
 }

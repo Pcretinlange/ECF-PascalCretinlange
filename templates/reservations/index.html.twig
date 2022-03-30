@@ -7,6 +7,8 @@
 
     <h4 class="mb-3 mt-2 h3 text-center mt-4 ">Réservation</h4>
     <hr>
+    {{ app.session.get('hotel') }}
+    {{ app.session.get('suite') }}
     <div class="seaview col-lg-5 p-5 mt-4 mb-4 m-auto">
         <h5 class="mb-2">Sélectionnez votre séjour :</h5>
         {{ form(reservationForm) }}
@@ -38,6 +40,7 @@
             })
         })
     </script>
+
     <script>
             const $hotel = $("#reservation_form_hotels");
             $hotel.change(function (){

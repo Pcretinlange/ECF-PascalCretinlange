@@ -13,11 +13,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ReservationFormType extends AbstractType
 {
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -46,22 +52,35 @@ class ReservationFormType extends AbstractType
                 'class' => Hotels::class,
                 'required' => true,
                 'placeholder' => 'Choisir un hôtel',
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function ($er) {
                     return $er->createQueryBuilder('h')
                         ->orderBy('h.name', 'ASC');
                 },
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez sélectionner votre hôtel'])
-                ]
+                ],
+                'choice_attr' => function($hotelId) {
+                    $render = [];
+                    if ($hotelId->getId() == $this->requestStack->getSession()->get('hotel')){
+                        $render['selected'] = "selected";
+                    }
+                    return $render;
+                }
             ]);
         $formModifier = function (FormInterface $form, Hotels $hotels = null) {
             $hotelRooms = null === $hotels ? [] : $hotels->getHotelRooms();
 
             $form->add('hotelRooms', EntityType::class, [
                 'class' => HotelRooms::class,
-                'placeholder' => '',
                 'choices' => $hotelRooms,
-                'label' => 'Suites'
+                'label' => 'Suites',
+                'choice_attr' => function($hotelId) {
+                    $render = [];
+                    if ($hotelId->getId() == $this->requestStack->getSession()->get('suite')){
+                        $render['selected'] = "selected";
+                    }
+                    return $render;
+                }
             ]);
         };
 
@@ -79,7 +98,6 @@ class ReservationFormType extends AbstractType
                 $formModifier($event->getForm()->getParent(), $hotel);
             }
         );
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
