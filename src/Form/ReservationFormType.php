@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\HotelRooms;
 use App\Entity\Hotels;
 use App\Entity\ReservationRooms;
-use Doctrine\ORM\EntityRepository;
+use App\Repository\HotelRoomsRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -31,21 +31,17 @@ class ReservationFormType extends AbstractType
                 'label' => 'Date de début de séjour',
                 'widget' => 'single_text',
                 'html5' => false,
+                'format' => 'dd/MM/yyyy',
                 'empty_data' => null,
-                'attr' => ["class" => 'startdate'],
-                'constraints' => [
-                    new NotBlank(['message' => 'Veuillez sélectionner votre date de début de séjour souhaitée'])
-                ]
+                'attr' => ["class" => 'startdate', 'autocomplete' => 'off'],
             ])
             ->add('end_date', DateType::class, [
                 'label' => 'Date de fin de séjour',
                 'widget' => 'single_text',
                 'html5' => false,
+                'format' => 'dd/MM/yyyy',
                 'empty_data' => null,
-                'attr' => ["class" => 'enddate'],
-                'constraints' => [
-                    new NotBlank(['message' => 'Veuillez sélectionner votre date de fin de séjour souhaitée'])
-                ]
+                'attr' => ["class" => 'enddate', 'autocomplete' => 'off'],
             ])
             ->add('hotels', EntityType::class, [
                 'label' => 'Hôtel',
@@ -56,9 +52,6 @@ class ReservationFormType extends AbstractType
                     return $er->createQueryBuilder('h')
                         ->orderBy('h.name', 'ASC');
                 },
-                'constraints' => [
-                    new NotBlank(['message' => 'Veuillez sélectionner votre hôtel'])
-                ],
                 'choice_attr' => function($hotelId) {
                     $render = [];
                     if ($hotelId->getId() == $this->requestStack->getSession()->get('hotel')){
@@ -68,11 +61,24 @@ class ReservationFormType extends AbstractType
                 }
             ]);
         $formModifier = function (FormInterface $form, Hotels $hotels = null) {
-            $hotelRooms = null === $hotels ? [] : $hotels->getHotelRooms();
+            $hotelRooms = null === $hotels ? [] : $hotels->getId();
+            $hotelsId = $this->requestStack->getSession()->get('hotel');
 
             $form->add('hotelRooms', EntityType::class, [
                 'class' => HotelRooms::class,
-                'choices' => $hotelRooms,
+                'query_builder' => function (HotelRoomsRepository $hotelRoomsRepository) use ($hotelRooms, $hotelsId) {
+                    if ($this->requestStack->getSession()->get('suite')) {
+                       $qb = $hotelRoomsRepository->createQueryBuilder('s')
+                            ->andWhere('s.hotels = :hotel')
+                           ->setParameter("hotel", $hotelsId );
+                     }
+                    else {
+                        $qb = $hotelRoomsRepository->createQueryBuilder('s')
+                            ->andWhere('s.hotels = :hotel')
+                            ->setParameter("hotel", $hotelRooms );
+                    }
+                        return $qb;
+                 },
                 'label' => 'Suites',
                 'choice_attr' => function($hotelId) {
                     $render = [];
@@ -94,6 +100,7 @@ class ReservationFormType extends AbstractType
         $builder->get('hotels')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($formModifier) {
+                $this->requestStack->getSession()->set('suite', '');
                 $hotel = $event->getForm()->getData();
                 $formModifier($event->getForm()->getParent(), $hotel);
             }

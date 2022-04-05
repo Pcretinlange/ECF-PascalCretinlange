@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\ReservationRooms;
+use App\Entity\Users;
 use App\Form\ReservationFormType;
-use App\Repository\HotelsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -19,11 +19,10 @@ class ReservationsController extends AbstractController
     }
 
     #[Route('/reservations', name: 'app_reservations')]
-    public function new(Request $request, HotelsRepository $hotelsRepository): Response
+    public function new(Request $request): Response
 {
 
     if($_GET == true){
-
         $id_hotel = $_GET['hotel'];
         $id_suite = $_GET['suite'];
         $this->requestStack->getSession()->set('hotel', $id_hotel);
@@ -33,12 +32,17 @@ class ReservationsController extends AbstractController
     $reservationRooms = new ReservationRooms();
     $form = $this->createForm(ReservationFormType::class, $reservationRooms);
     $form->handleRequest($request);
+    $data = null;
+      if ($form->isSubmitted() && $form->isValid()) {
+        $data = $form->getData();
+        /**@var Users $users */
+        $users = $this->getUser();
+        $reservationRooms->setUsers($users);
+    }
         return
             $this ->render('reservations/index.html.twig', [
             'reservationForm' => $form->createView(),
+            'data' => $data
         ]);
     }
-
-
-
 }

@@ -2,63 +2,39 @@
 
 {% block title %}Réservation de votre Séjour{% endblock %}
 
-
 {% block body %}
+    <main>
+        <article>
+            <section>
+                <h4 class="mb-3 mt-2 h3 text-center mt-4 ">Réservation</h4>
+                <hr>
+            </section>
+            <section class="seaview col-lg-5 p-5 mt-4 mb-4 m-auto">
+                <h5 class="mb-2">Sélectionnez votre séjour :</h5>
+                {{ form_start(reservationForm, {"attr":{"id": "idReservation"}}) }}
+                {{ form_row(reservationForm.start_date) }}
+                {{ form_row(reservationForm.end_date) }}
+                {{ form_row(reservationForm.hotels) }}
+                {{ form_row(reservationForm.hotelRooms) }}
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn bg-dark text-white w-15 ">Rechercher</button>
+                </div>
 
-    <h4 class="mb-3 mt-2 h3 text-center mt-4 ">Réservation</h4>
-    <hr>
-    {{ app.session.get('hotel') }}
-    {{ app.session.get('suite') }}
-    <div class="seaview col-lg-5 p-5 mt-4 mb-4 m-auto">
-        <h5 class="mb-2">Sélectionnez votre séjour :</h5>
-        {{ form(reservationForm) }}
-        <br>
-    </div>
+                {{ form_end(reservationForm) }}
+            </section>
+            <section  id="result">
+                    {% if data is not null %}
+                        {% include 'reservations/index2.html.twig'%}
+                    {% endif %}
+            </section>
+        </article>
+    </main>
+
 
 {% endblock %}
+
 {% block body_javascript %}
     <script type="module" src="{{ asset('assets/datepicker/datepicker.min.js') }}"></script>
-        <script type="text/javascript">
-        $(document).ready(function (){
-            datepicker('.startdate', {
-                id:1,
-                formatter: (input, date) => {
-                    input.value = date.toLocaleDateString()
-                },
-                startDay: 1,
-                customDays : ['Di' , 'Lu' , 'Ma' , 'Me' , 'Je' , 'Ve' , 'Sa'],
-                customMonths: ['Janvier' , 'Février' , 'Mars' , 'Avril' , 'Mai' , 'Juin' , 'Juillet' , 'Août' , 'Septembre' , 'Octobre' , 'Novembre' , 'Décembre'],
-                overlayButton : 'Valider',
-                overlayPlaceholder : 'Année',
-                minDate : new Date(Date.now())
-            })
-            datepicker('.enddate', {
-                id:1,
-                formatter: (input, date) => {
-                    input.value = date.toLocaleDateString()
-                }
-            })
-        })
-    </script>
-
-    <script>
-            const $hotel = $("#reservation_form_hotels");
-            $hotel.change(function (){
-            let $form = $(this).closest('form');
-            let data = {};
-            data[$hotel.attr('name')] = $hotel.val();
-
-                $.ajax({
-                    url:$form.attr('action'),
-                    type:$form.attr('method'),
-                    data:data,
-                    complete: function(html) {
-                        $("#reservation_form_hotelRooms").replaceWith(
-                        $(html.responseText).find("#reservation_form_hotelRooms")
-                        );
-                        }
-                });
-            });
-    </script>
-
+    <script type="text/javascript" src="{{ asset('assets/reservation-hotel-room.js') }}"></script>
 {% endblock %}

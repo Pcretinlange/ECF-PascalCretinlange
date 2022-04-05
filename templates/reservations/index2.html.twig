@@ -1,0 +1,32 @@
+<main>
+    Du {{ data.startdate | date('d-m-y')}} Au {{ data.enddate | date('d-m-y')}}
+    {{ (data.hotelRooms.price | number_format(0, '.', '.'))*((data.enddate | date('U') - data.startdate | date('U'))/86400) }}€ pour {{ (data.enddate | date('U') - data.startdate | date('U'))/86400 }} nuit(s)
+    <div class="row  justify-content-center text-center">
+        <h3 class="col-md-4 mt-5 mb-2">{{data.hotels }}</h3>
+    </div>
+    <article class="row justify-content-center">
+            <section class="seaview col-md-4 d-flex flex-column text-center p-4 align-items-center m-5">
+            <h4 class="mt-2 mb-2">{{ data.hotelRooms.title }}</h4>
+
+            <div id="suite{{data.hotelRooms.id}}" class="carousel slide mt-2 mb-4" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for image in data.hotelRooms.images %}
+                        <div class="carousel-item {% if loop.index==1 %}active{% endif %}">
+                            <img src="{{ asset('img/'~ image.bin)}}" alt="{{ data.hotelRooms.title }}" class="d-block w-100 card-img">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#suite{{data.hotelRooms.id}}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#suite{{data.hotelRooms.id}}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <p>{{data.hotelRooms.description }}</p>
+            <a href="#" class="btn bg-dark text-white w-15">Réserver</a>
+            <br>
+            </section>
+    </article>

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}BIENVENUE  SUR HYPNOS{% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <title>{% block title %}BIENVENUE SUR HYPNOS{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -13,131 +15,130 @@
         {{ encore_entry_script_tags('app') }}
 
     {% endblock %}
-
 </head>
-<body>
 
-<header>
+<body>
+<header id="test">
     <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
         <div class="container-fluid">
-            <a href="{{path('app_home')}}" class="navbar-brand" >
-                    <img height="80px" src="{{ asset("img/logoblanc2.png") }}" alt="logo-hypnos">
+            <a href="{{path('app_home')}}" class="navbar-brand">
+                <img height="80px" src="{{ asset("img/logoblanc2.png") }}" alt="logo-hypnos">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="menutoggle collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav m-auto mb-2 mb-lg-0 ">
                     <li class="nav-item">
                         {% if (app.request.get('_route') == 'app_home') %}
-                        <a class="nav-link active fw-bolder" aria-current="page" href="{{path('app_home')}}">Accueil</a>
+                        <a class="nav-link active fw-bolder" aria-current="page"
+                           href="{{path('app_home')}}">Accueil</a>
                         {% else %}
                         <a class="nav-link fw-bolder" aria-current="page" href="{{path('app_home')}}">Accueil</a>
                     </li>
-                         {% endif %}
+                    {% endif %}
                     <li class="nav-item fw-bolder">
                         {% if (app.request.get('_route') == 'app_ourhotels') %}
-                        <a class="nav-link active fw-bolder" aria-current="page" href="{{path('app_ourhotels')}}">Nos Hôtels</a>
+                        <a class="nav-link active fw-bolder" aria-current="page"
+                           href="{{path('app_ourhotels')}}">Nos Hôtels</a>
                         {% else %}
-                        <a class="nav-link fw-bolder" aria-current="page" href="{{path('app_ourhotels')}}">Nos Hôtels</a>
+                        <a class="nav-link fw-bolder" aria-current="page" href="{{path('app_ourhotels')}}">Nos
+                            Hôtels</a>
                     </li>
-                        {% endif %}
+                    {% endif %}
                     <li class="nav-item fw-bolder">
                         {% if (app.request.get('_route') == 'app_reservations') %}
-                        <a class="nav-link active fw-bolder" aria-current="page" href="{{path('app_reservations')}}">Réservations</a>
+                        <a class="nav-link active fw-bolder" aria-current="page"
+                           href="{{path('app_reservations')}}">Réservations</a>
                         {% else %}
-                        <a class="nav-link fw-bolder" aria-current="page" href="{{path('app_reservations')}}">Réservations</a>
+                        <a class="nav-link fw-bolder" aria-current="page"
+                           href="{{path('app_reservations')}}">Réservations</a>
                     </li>
                     {% endif %}
                     <li class="nav-item fw-bolder">
                         <a class="nav-link" href="#">Nous Contacter</a>
                     </li>
-
-
-                </ul>{% if app.user %}
+                </ul>
+                {% if app.user %}
                 <div class="dropdown ">
-                    <button class="bouton-connexion btn btn-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img width="10%" src="{{ asset("img/logo-connexion.png") }}" alt=""> Bonjour {{ app.user.firstname }}
+                    <button class="bouton-connexion btn btn-dark" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <img width="10%" src="{{ asset(" img/logo-connexion.png") }}" alt=""> Bonjour {{ app.user.firstname }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">Mon Compte</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li><a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a></li>
                     </ul>
-                        {% else %}
-
-                        <div class="dropdown ">
-                        <button class="bouton-connexion btn btn-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img width="20%" src="{{ asset("img/logo-connexion.png") }}" alt=""> Se Connecter
+                    {% else %}
+                    <div class="dropdown ">
+                        <button class="bouton-connexion btn btn-dark" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <img width="20%" src="{{ asset(" img/logo-connexion.png") }}" alt=""> Se Connecter
                         </button>
-                            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{path('app_login')}}">Connexion</a></li>
-                        <li><a class="dropdown-item" href="{{path('app_register')}}">Inscription</a></li>
-                    </ul>
-                    {% endif %}
+                        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{path('app_login')}}">Connexion</a></li>
+                            <li><a class="dropdown-item" href="{{path('app_register')}}">Inscription</a></li>
+                        </ul>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 </header>
-
 <div class="background-header">
-<div class="d-flex h-75 flex-column justify-content-end text-center align-items-center">
-    <h1 class="plongez text-black-50">Plongez et</h1>
-    <h1 class="text-black">Découvrez Hypnos</h1>
-    <a href="{{path('app_reservations')}}" class="btn bg-dark text-white w-15">Réservez vite !</a>
+    <div class="d-flex h-75 flex-column justify-content-end text-center align-items-center">
+        <h1 class="plongez text-black-50">Plongez et</h1>
+        <h1 class="text-black">Découvrez Hypnos</h1>
+        <a href="{{path('app_reservations')}}" class="btn bg-dark text-white w-15">Réservez vite !</a>
+    </div>
 </div>
-</div>
+{% block body %}
+{% endblock %}
+<footer class="footer-style">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Informations</h5>
 
-
-
-
-                {% block body %}
-
-
-
-                {% endblock %}
-
-        <footer class="footer-style">
-            <div class="container p-4">
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                        <h5 class="text-uppercase">Informations</h5>
-
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a href="{{path('app_ourhotels')}}" class="text-black">Nos Hôtels</a>
-                            </li>
-                            <li>
-                                <a href="{{path('app_reservations')}}" class="text-black">Réserver</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-black">Compte Client</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-black">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">A Propos de nous</h5>
-                    <p>
-                        Séjourner dans un Hôtel Hypnos, c'est multiplier les plaisirs
-                        et satisfaire toutes ses envies. Entre ressourcement et légèreté,
-                        rituels et surprises… Nos hôtels offrent une nouvelle
-                        expérience à vivre, faite d'élégance, de sensualité, d'impertinence et
-                        de convivialité.
-                    </p>
-                </div>
-
-            </div>   </div>
-            <div class=" text-center p-3 bg-black text-white">
-               Global Site Hypnos Group © - 2022 Copyright - Pascal Cretin L'Ange
-
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <a href="{{path('app_ourhotels')}}" class="text-black">Nos Hôtels</a>
+                    </li>
+                    <li>
+                        <a href="{{path('app_reservations')}}" class="text-black">Réserver</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-black">Compte Client</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-black">Contact</a>
+                    </li>
+                </ul>
             </div>
-        </footer>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="text-uppercase">A Propos de nous</h5>
+                <p>
+                    Séjourner dans un Hôtel Hypnos, c'est multiplier les plaisirs
+                    et satisfaire toutes ses envies. Entre ressourcement et légèreté,
+                    rituels et surprises… Nos hôtels offrent une nouvelle
+                    expérience à vivre, faite d'élégance, de sensualité, d'impertinence et
+                    de convivialité.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class=" text-center p-3 bg-black text-white">
+        Global Site Hypnos Group © - 2022 Copyright - Pascal Cretin L'Ange
+    </div>
+</footer>
 {% block body_javascript %}
 {% endblock %}
-      </body>
+</body>
 </html>
 
