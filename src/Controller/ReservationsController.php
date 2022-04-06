@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ReservationRooms;
 use App\Entity\Users;
 use App\Form\ReservationFormType;
+use App\Repository\ReservationRoomsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -13,13 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReservationsController extends AbstractController
 {
+    public RequestStack $requestStack;
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
     }
 
     #[Route('/reservations', name: 'app_reservations')]
-    public function new(Request $request): Response
+    public function new(Request $request, ReservationRoomsRepository $reservationRoomsRepository): Response
 {
 
     if($_GET == true){
@@ -33,8 +35,20 @@ class ReservationsController extends AbstractController
     $form = $this->createForm(ReservationFormType::class, $reservationRooms);
     $form->handleRequest($request);
     $data = null;
+    $dt = false;
       if ($form->isSubmitted() && $form->isValid()) {
-        $data = $form->getData();
+       $req = $reservationRoomsRepository->findReservation(
+            $form->get('hotels')->getData(),
+            $form->get('hotelRooms')->getData(),
+            $form->get('start_date')->getData(),
+            $form->get('end_date')->getData()
+        );
+       if (empty($req)){
+           $data = $form->getData();
+
+       } if (!empty($req)){
+              $dt = true;
+       }
         /**@var Users $users */
         $users = $this->getUser();
         $reservationRooms->setUsers($users);
@@ -42,7 +56,8 @@ class ReservationsController extends AbstractController
         return
             $this ->render('reservations/index.html.twig', [
             'reservationForm' => $form->createView(),
-            'data' => $data
+            'data' => $data,
+                'dt' => $dt
         ]);
     }
 }

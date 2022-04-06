@@ -45,6 +45,25 @@ class ReservationRoomsRepository extends ServiceEntityRepository
         }
     }
 
+    public function findReservation($hotel, $hotelRoom, $startDate, $endDate)
+    {
+        $queryBuilder = $this->createQueryBuilder('a')
+            ->innerJoin('a.hotels', 'h')
+            ->innerJoin('a.hotelRooms', 'hr')
+            ->where('h = :hotel')
+            ->andWhere('hr = :hotelRoom')
+            ->andWhere('(a.start_date BETWEEN :startDateFrom AND :startDateTo) OR (a.end_date BETWEEN :endDateFrom AND :endDateTo) OR (a.start_date < :startDateFrom AND a.end_date > :endDateTo)')
+            ->setParameter('hotel', $hotel)
+            ->setParameter('hotelRoom', $hotelRoom)
+            ->setParameter('startDateFrom', $startDate)
+            ->setParameter('startDateTo', $endDate)
+            ->setParameter('endDateFrom', $startDate)
+            ->setParameter('endDateTo', $endDate);
+
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+}
     // /**
     //  * @return ReservationRooms[] Returns an array of ReservationRooms objects
     //  */
@@ -73,4 +92,3 @@ class ReservationRoomsRepository extends ServiceEntityRepository
         ;
     }
     */
-}

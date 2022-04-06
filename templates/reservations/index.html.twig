@@ -27,6 +27,10 @@
                     {% if data is not null %}
                         {% include 'reservations/index2.html.twig'%}
                     {% endif %}
+
+                    {% if dt == true %}
+                        <p class="seaview col-lg-5 p-5 mt-4 mb-4 m-auto">Désolé, les dates sélectionnées ne sont pas disponibles pour cette suite.</p>
+                    {% endif %}
             </section>
         </article>
     </main>
