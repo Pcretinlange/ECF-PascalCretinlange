@@ -69,6 +69,9 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">Mon Compte</a></li>
+                        {% if is_granted('ROLE_GERANT') or  is_granted('ROLE_ADMIN')%}
+                        <li><a class="dropdown-item" href="{{path('admin') }}">Administration</li>
+                        {% endif %}
                         <li>
                             <hr class="dropdown-divider">
                         </li>
