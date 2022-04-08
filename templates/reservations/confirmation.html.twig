@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation de votre Séjour{% endblock %}
+
+{% block body %}
+    <main>
+        <article class="row justify-content-center">
+            <section class="seaview col-md-4 d-flex flex-column text-center p-4 align-items-center m-5">
+                <p class="mt-2 mb-2">Votre réservation pour la {{ data.hotelRooms.title }} est confirmée</p>
+                <p class="mb-2 p-2">Du {{ data.startdate | date('d-m-y')}} au {{ data.enddate | date('d-m-y')}}</p>
+                <p class="p-2">  {{ (data.hotelRooms.price | number_format(0, '.', '.'))*((data.enddate | date('U') - data.startdate | date('U'))/86400) }} euros pour {{ (data.enddate | date('U') - data.startdate | date('U'))/86400 }} nuit(s)</p>
+                <a href="{{path('app_home')}}" class="btn bg-dark text-white w-15">Retourner à l'Accueil</a>
+                <br>
+            </section>
+        </article>
+    </main>
+
+
+{% endblock %}
+
+{% block body_javascript %}
+    <script type="text/javascript" src="{{ asset('assets/reservation-hotel-room.js') }}"></script>
+{% endblock %}

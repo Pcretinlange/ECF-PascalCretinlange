@@ -28,6 +28,9 @@ class ReservationRooms
     #[ORM\ManyToOne(targetEntity: HotelRooms::class, inversedBy: 'Reservation_rooms')]
     private $hotelRooms;
 
+    #[ORM\Column(type: 'decimal', precision: 8, scale: 2)]
+    private $totalPrice;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class ReservationRooms
     public function setHotelRooms(?HotelRooms $hotelRooms): self
     {
         $this->hotelRooms = $hotelRooms;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?string
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(string $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }
