@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter{% endblock %}
+
+{% block body %}
+    <main>
+        <article>
+            <section>
+                <h4 class="col-lg-5 mb-3 mt-2 h3 text-center mt-4 ">Nous Contacter</h4>
+                <hr>
+                {% for message in app.flashes('confirm') %}
+                    <div class="alert alert-danger text-center" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </section>
+            <section class="seaview col-lg-5 p-5 mt-4 mb-4 m-auto">
+                {{ form_start(contactForm) }}
+                {{ form_row(contactForm.firstname) }}
+                {{ form_row(contactForm.lastname) }}
+                {{ form_row(contactForm.email) }}
+                {{ form_row(contactForm.subject) }}
+                {{ form_row(contactForm.message) }}
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn bg-dark text-white w-15 ">Envoyer</button>
+                </div>
+                {{ form_end(contactForm) }}
+            </section>
+        </article>
+    </main>
+
+{% endblock %}
+

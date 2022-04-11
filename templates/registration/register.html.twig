@@ -3,11 +3,18 @@
 {% block title %}Création d'un compte client{% endblock %}
 
 {% block body %}
-    <h4 class="mb-3 mt-2 h3 text-center mt-4 ">Inscription</h4>
-    <hr>
-    <div class="col-lg-5 mt-4 m-auto">
-        {{ form(registrationForm) }}
-        <br>
-        <a class="d-flex justify-content-center mb-3 mt-2 text-center mt-4 text-black" href="{{path('app_login')}}">Déjà membre ? Connectez-vous</a>
-    </div>
+    <main>
+        <article>
+            <section>
+                <h4 class="mb-3 mt-2 h3 text-center mt-4 ">Inscription</h4>
+                <hr>
+            </section>
+            <section class="seaview col-lg-5 p-5 mt-4 mb-4 m-auto">
+                {{ form(registrationForm) }}
+                <br>
+                <a class="d-flex justify-content-center mb-3 mt-2 text-center mt-4 text-black" href="{{path('app_login')}}">Déjà membre ? Connectez-vous</a>
+            </section>
+        </article>
+    </main>
+
 {% endblock %}

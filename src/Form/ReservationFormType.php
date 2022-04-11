@@ -15,7 +15,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ReservationFormType extends AbstractType
 {
@@ -23,7 +22,6 @@ class ReservationFormType extends AbstractType
     {
         $this->requestStack = $requestStack;
     }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
