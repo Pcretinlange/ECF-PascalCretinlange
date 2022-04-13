@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Compte{% endblock %}
+
+{% block body %}
+    <main>
+        <article>
+            <section>
+                <div class="d-flex justify-content-center container">
+                    <div class="col-md-6">
+                        <h1 class="mt-5 mb-2 text-center trait-noir">Nous Contacter</h1>
+                        <p class="mt-4">Depuis plus d’un siècle, Hypnos n’a jamais cessé de se réinventer, étant toujours plus à la pointe des dernières tendances et anticipant les nouveaux désirs de la clientèle. Aujourd'hui, le Groupe est fière de vous présenter ses hôtels, tous, plus prestigieux, ambitieux et fondés dans des écrins de luxe.
+                        </p>
+                    </div>
+                {% for message in app.flashes('successPassword') %}
+
+                <div class="alert alert-success text-center" role="alert">{{ message }}</div>
+                {% endfor %}
+                {% for message in app.flashes('errorPassword') %}
+                    <div class="alert alert-danger text-center" role="alert">{{ message }}</div>
+                {% endfor %}
+            </section>
+            <h2 class="mt-5 text-center">Mon Profil</h2>
+            <section class="seaview col-12 container p-4 mt-2 mb-4 m-auto d-flex justify-content-center">
+
+                <div class="col-lg-5"> <img width="150vw" src="{{ asset("img/photo-avatar.webp") }}" alt="avatar">
+                </div>
+                <div class="col-lg-5">
+                <h5 class="mb-2 text-center">{{ app.user.firstname }} {{ app.user.lastname }}</h5>
+                <p class="mb-2">E-mail : {{ app.user.email }}</p>
+                <div><p class="mb-2">Mot de passe : ******** </p>
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Modifier le mot de passe
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modifier votre Mot de passe</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>  {{ form(modificationPass) }}</p>
+                            </div></div></div>
+                         </div>
+                    </div>
+                </div>
+                <br>
+            </section>
+        </article>
+        <article class="row align-items-md-stretch">
+            <h2 class="mt-5 text-center">Mes Réservations</h2>
+            {% for reservation in resa %}
+                <section class="col-12 mb-4">
+                    <div class="p-3 text-dark seaview container  rounded-3">
+                        <div class="d-flex mb-3">
+                            <div class="col-6 d-flex flex-column justify-content-center align-items-center">
+                                <img class="img-thumbnail img-fluid rounded-3" src="{{ asset('img/hotel'~ reservation.hotels.id ~'.webp') }}" alt="{{ reservation.hotels.name }}">
+                            </div>
+                            <div class="col-6 d-flex flex-column justify-content-center align-items-center">
+                                <h2 class="mb-2 text-center fs-4">{{ reservation.hotels.name }}</h2>
+                               <h3 class="text-center fs-4">{{ reservation.hotelRooms.title }}</h3>
+                                <p class="fs-5">Prix : {{ reservation.totalPrice }}€ le séjour </p>
+                                <p class="fs-5 d-none d-md-inline">{{ reservation.hotelRooms.description }}</p>
+                                <p class="mb-3 fs-5 d-flex justify-content-center">Du {{ reservation.startdate | date('d-m-y')}} au {{ reservation.endDate | date('d-m-y') }}</p>
+                            </div>
+                          </div>
+                        {% if reservation.startDate | date_modify('-3 days') | date('y/m/d') >= 'now' | date('y/m/d') %}
+                            <div class="d-flex justify-content-center align-items-center">
+                                <form onsubmit="return confirm('Confirmer la suppression du séjour ?')" method="post" action="{{ path("reservation_erase",{ 'id': reservation.id }) }}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token("delete" ~ reservation.id) }}">
+                                    <button class="btn btn-dark">Annuler</button>
+                                </form>
+                            </div>
+                            {% else %}
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <button class="btn btn-dark disabled">Annulation indisponible</button>
+                                </div>
+                        {% endif %}
+                    </div>
+                </section>
+            {% endfor %}
+        </article>
+    </main>
+
+{% endblock %}

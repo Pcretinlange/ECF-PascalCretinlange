@@ -5,9 +5,18 @@
 {% block body %}
     <main>
         <article>
-            <section>
-                <h4 class="col-lg-5 mb-3 mt-2 h3 text-center mt-4 ">Nous Contacter</h4>
+            <section class="row justify-content-center text-center">
+                <div class="col-md-6">
+                    <h3 class="mt-5 mb-2">Nous Contacter</h3>
+                    <h4 class="trait-noir p-2">Une question ? Une demande ?</h4>
+                    <p class="mt-4">Depuis plus d’un siècle, Hypnos n’a jamais cessé de se réinventer, étant toujours plus à la pointe des dernières tendances et anticipant les nouveaux désirs de la clientèle. Aujourd'hui, le Groupe est fière de vous présenter ses hôtels, tous, plus prestigieux, ambitieux et fondés dans des écrins de luxe.
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <hr>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2143.88595355454!2d2.299934729570834!3d48.872869328040714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fda7ac0ead1%3A0xf463a2f16479e0d4!2sClub%20Barri%C3%A8re%20Paris!5e0!3m2!1sfr!2sfr!4v1649755824396!5m2!1sfr!2sfr" width="100%" height="450" style="border: #111111 " allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 <hr>
+                </div>
                 {% for message in app.flashes('confirm') %}
                     <div class="alert alert-danger text-center" role="alert">
                         {{ message }}

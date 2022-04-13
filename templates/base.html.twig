@@ -3,9 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}BIENVENUE SUR HYPNOS{% endblock %}</title>
-    <link rel="icon"
-          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="robots" content="all">
+    <meta name="description" content="Site de présentation du groupe Hypnos permettant de voir l'ensemble de nos hôtels">
+    <title>{% block title %}Groupe Hôtelier Hypnos - In your City and beyond !{% endblock %}</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon/favicon-16x16.png') }}">
+
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -36,7 +42,7 @@
                         <a class="nav-link active fw-bolder" aria-current="page"
                            href="{{path('app_home')}}">Accueil</a>
                         {% else %}
-                        <a class="nav-link fw-bolder" aria-current="page" href="{{path('app_home')}}">Accueil</a>
+                        <a class="nav-link " aria-current="page" href="{{path('app_home')}}">Accueil</a>
                     </li>
                     {% endif %}
                     <li class="nav-item fw-bolder">
@@ -44,7 +50,7 @@
                         <a class="nav-link active fw-bolder" aria-current="page"
                            href="{{path('app_ourhotels')}}">Nos Hôtels</a>
                         {% else %}
-                        <a class="nav-link fw-bolder" aria-current="page" href="{{path('app_ourhotels')}}">Nos
+                        <a class="nav-link" aria-current="page" href="{{path('app_ourhotels')}}">Nos
                             Hôtels</a>
                     </li>
                     {% endif %}
@@ -53,13 +59,19 @@
                         <a class="nav-link active fw-bolder" aria-current="page"
                            href="{{path('app_reservations')}}">Réservations</a>
                         {% else %}
-                        <a class="nav-link fw-bolder" aria-current="page"
+                        <a class="nav-link" aria-current="page"
                            href="{{path('app_reservations')}}">Réservations</a>
                     </li>
                     {% endif %}
                     <li class="nav-item fw-bolder">
-                        <a class="nav-link" href="{{path('app_contact')}}">Nous Contacter</a>
+                        {% if (app.request.get('_route') == 'app_reservations') %}
+                        <a class="nav-link active fw-bolder" aria-current="page"
+                           href="{{path('app_contact')}}">Nous Contacter</a>
+                        {% else %}
+                        <a class="nav-link" aria-current="page"
+                           href="{{path('app_contact')}}">Nous Contacter</a>
                     </li>
+                    {% endif %}
                 </ul>
                 {% if app.user %}
                 <div class="dropdown ">
@@ -68,7 +80,7 @@
                         <img width="10%" src="{{ asset(" img/logo-connexion.png") }}" alt=""> Bonjour {{ app.user.firstname }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Mon Compte</a></li>
+                        <li><a class="dropdown-item" href="{{path('app_account')}}">Mon Compte</a></li>
                         {% if is_granted('ROLE_GERANT') or  is_granted('ROLE_ADMIN')%}
                         <li><a class="dropdown-item" href="{{path('admin') }}">Administration</li>
                         {% endif %}
@@ -117,10 +129,10 @@
                         <a href="{{path('app_reservations')}}" class="text-black">Réserver</a>
                     </li>
                     <li>
-                        <a href="#" class="text-black">Compte Client</a>
+                        <a href="{{path('app_account')}}" class="text-black">Compte Client</a>
                     </li>
                     <li>
-                        <a href="#" class="text-black">Contact</a>
+                        <a href="{{path('app_contact')}}" class="text-black">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -139,6 +151,7 @@
     <div class=" text-center p-3 bg-black text-white">
         Global Site Hypnos Group © - 2022 Copyright - Pascal Cretin L'Ange
     </div>
+
 </footer>
 {% block body_javascript %}
 {% endblock %}
