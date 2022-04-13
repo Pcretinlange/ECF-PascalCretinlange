@@ -1,0 +1,7 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block main %}
+    <h1 class="justify-content-center text-center">Bonjour {{ app.user.firstname }}</h1>
+    <h2 class="justify-content-center text-center">Bienvenue sur votre interface d'administration.</h2>
+    <a class="btn btn-dark text-center" href="{{ path('app_home') }}">Revenir sur le site</a>
+{% endblock %}
